@@ -130,6 +130,51 @@ body {
   display: none;
 }
 
+.form-container, .admin-panel {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+.form-container h2, .admin-panel h2 {
+  margin-bottom: 1rem;
+}
+
+.form-container form input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+.form-container form button,
+.admin-section button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #088178;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.form-container form button:hover,
+.admin-section button:hover {
+  background-color: #065f5a;
+}
+
+.admin-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
 /*----------------------------------Home Page-------------------------------*/
 #hero {
   background-image: url(img/hero4.png);
