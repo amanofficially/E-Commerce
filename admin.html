@@ -3,16 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin Panel - QuickCart</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #e7eaf8; /* matched to homepage background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #008080; /* teal */
+      border: none;
+      color: white;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #006666; /* darker teal */
+    }
+
+    .admin-panel {
+      display: none;
+    }
+
+    .admin-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="admin-panel">
+  <div class="container" id="login-container">
+    <h2>Admin Login</h2>
+    <div class="form-group">
+      <input type="text" id="username" placeholder="Username">
+    </div>
+    <div class="form-group">
+      <input type="password" id="password" placeholder="Password">
+    </div>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div class="container admin-panel" id="admin-panel">
     <h2>Admin Dashboard</h2>
     <div class="admin-section">
       <button onclick="alert('Manage Products')">Manage Products</button>
       <button onclick="alert('View Orders')">View Orders</button>
       <button onclick="alert('User Management')">User Management</button>
+      <button onclick="logout()">Logout</button>
     </div>
   </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+
+      if (user === 'admin' && pass === 'admin123') {
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'block';
+      } else {
+        alert('Invalid login. Try admin / admin123');
+      }
+    }
+
+    function logout() {
+      document.getElementById('admin-panel').style.display = 'none';
+      document.getElementById('login-container').style.display = 'block';
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+    }
+  </script>
 </body>
 </html>
