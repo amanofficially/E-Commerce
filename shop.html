@@ -6,12 +6,38 @@
     <title>Quick-Cart</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #088178;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+        
+        @keyframes fadein {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeout {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); }
+        }
+        </style>
+        
 </head>
 <body>
 
 <section id="header">
         <a href="#"><img src="img/logo.svg" class="logo" alt="Logo"></a>
-
         <div>
             <ul id="navbar">
             <li><a  href="index.html">Home</a></li>
@@ -19,10 +45,33 @@
             <li><a href="blog.html">Blog</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Conatact</a></li>
+            <!-- Account Section -->
+            <li class="dropdown">
+            <a href="#">Account <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
             <li><a href="login.html">Login</a></li>
             <li><a href="signup.html">Signup</a></li>
-            <li><a href="admin.html">Admin</a></li>
-            <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            </ul>
+            </li>
+  
+            <!-- Admin Button styled separately -->
+            <li><a href="admin.html" class="admin-btn">Admin</a></li>
+            <li id="lg-bag">
+                <a href="cart.html" style="position: relative;">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count" style="
+                        position: absolute;
+                        top: -8px;
+                        right: -10px;
+                        background-color: red;
+                        color: white;
+                        font-size: 12px;
+                        padding: 2px 6px;
+                        border-radius: 50%;
+                    ">0</span>
+                </a>
+            </li>
+            
             <a href="#" id="close"><img src="img/close-black.png" width="18px"></a>
             </ul>
         </div>
@@ -54,7 +103,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -72,7 +121,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -90,7 +139,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -108,7 +157,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -126,7 +175,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -144,7 +193,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -162,7 +211,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -180,7 +229,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -198,7 +247,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -216,7 +265,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -234,7 +283,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -252,7 +301,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -270,7 +319,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -289,7 +338,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -306,7 +355,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
 
         <div class="pro">
@@ -322,7 +371,7 @@
                 </div>
                 <h4>150 &#8377</h4>
             </div>
-            <a class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="cart" data-name="Cartoon Astronaut T-Shirts" data-price="150" data-image="img/products/f1.jpg"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
     </div>
 </section>
@@ -348,8 +397,8 @@
     <div class="col">
         <img class="logo" src="img/logo.svg" alt="">
         <h4>Conatact</h4>
-        <p><strong>Address:</strong>742,Govind Colony Indore</p>
-        <p><strong>Phone:</strong>73542145700</p>
+        <p><strong>Address:</strong>Govind Colony Indore</p>
+        <p><strong>Phone:</strong>738145700</p>
         <p><strong>Hours:</strong>10:00 - 18:00, Mon-sat</p>
 
         <div class="follow">
@@ -395,5 +444,50 @@
     </div>
 </footer>
     <script src="script.js"></script>
+    <script>
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.classList.add('toast');
+            toast.textContent = message;
+            document.body.appendChild(toast);
+    
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+            document.getElementById('cart-count').textContent = count;
+        }
+    
+        const cartButtons = document.querySelectorAll('.cart');
+        cartButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const name = button.getAttribute('data-name');
+                const price = button.getAttribute('data-price');
+                const image = button.getAttribute('data-image');
+    
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+                const existingItem = cart.find(item => item.name === name);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ name, price, image, quantity: 1 });
+                }
+    
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                showToast(`🛒 ${name} added to cart!`);
+            });
+        });
+    
+        // Initialize count on page load
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+    </script>
+       
 </body>
 </html>
