@@ -174,6 +174,57 @@ body {
   gap: 1rem;
 }
 
+/* Dropdown Styling */
+#navbar .dropdown {
+  position: relative;
+}
+
+#navbar .dropdown-menu {
+  display: none;
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  top: 100%;
+  left: 0;
+  z-index: 999;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#navbar .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+#navbar .dropdown-menu li {
+  padding: 0.5rem 1.5rem;
+}
+
+#navbar .dropdown-menu li a {
+  color: #333;
+  text-decoration: none;
+}
+
+#navbar .dropdown-menu li a:hover {
+  color: #008080;
+}
+
+/* Admin Button Special Styling */
+#navbar .admin-btn {
+  background-color: #008080;
+  color: white !important;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+#navbar .admin-btn:hover {
+  background-color: #006666;
+}
+
+
 
 /*----------------------------------Home Page-------------------------------*/
 #hero {
