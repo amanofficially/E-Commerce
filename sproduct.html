@@ -29,7 +29,12 @@
   
             <!-- Admin Button styled separately -->
             <li><a href="admin.html" class="admin-btn">Admin</a></li>
-            <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <li id="lg-bag">
+                <a href="cart.html">
+                  <i class="fa-solid fa-cart-shopping"></i>
+                  <span id="cart-count" style="background:#088178;color:#fff;border-radius:50%;padding:2px 6px;font-size:12px;position:absolute;top:-5px;right:-10px;">0</span>
+                </a>
+              </li>              
             <a href="#" id="close"><img src="img/close-black.png" width="18px"></a>
             </ul>
         </div>
@@ -233,5 +238,56 @@
         }
     </script>
     <script src="script.js"></script>
+    <!-- Success Message Popup -->
+<div id="cart-message" style="display:none; position:fixed; top:10%; right:10px; background:#088178; color:#fff; padding:10px 20px; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.2); z-index:1000;">
+    Product added to cart!
+</div>
+
+<script>
+    // Cart Logic
+    document.querySelector(".single-pro-details .normal").addEventListener("click", function () {
+        const product = {
+            name: document.querySelector(".single-pro-details h4").innerText,
+            price: document.querySelector(".single-pro-details h2").innerText.replace('₹', '').trim(),
+            quantity: parseInt(document.querySelector(".single-pro-details input[type='number']").value),
+            image: document.getElementById("MainImg").src
+        };
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Check if already in cart
+        const index = cart.findIndex(item => item.name === product.name);
+        if (index !== -1) {
+            cart[index].quantity += product.quantity;
+        } else {
+            cart.push(product);
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        showCartMessage();
+    });
+
+    // Update Cart Count in Navbar
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById("cart-count").innerText = count;
+    }
+
+    // Show Stylish Cart Message
+    function showCartMessage() {
+        const msg = document.getElementById("cart-message");
+        msg.style.display = "block";
+        setTimeout(() => {
+            msg.style.display = "none";
+        }, 2000);
+    }
+
+    // Initial load count
+    window.addEventListener("DOMContentLoaded", updateCartCount);
+</script>
+
+    
 </body>
 </html>
