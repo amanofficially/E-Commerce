@@ -9,6 +9,40 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
+    <style>
+      #order-confirm {
+        display: none;
+        position: fixed;
+        inset: 0;
+        margin: auto;
+        background: linear-gradient(135deg, #00c9ff 0%, #92fe9d 100%);
+        color: #fff;
+        padding: 30px 50px;
+        border-radius: 15px;
+        font-size: 22px;
+        z-index: 1100;
+        width: fit-content;
+        height: fit-content;
+        animation: popFade 0.6s ease-in-out;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+
+      @keyframes popFade {
+        0% {
+          opacity: 0;
+          transform: scale(0.6);
+        }
+        60% {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+    
   </head>
   <body>
     <section id="header">
@@ -58,32 +92,8 @@
             <td>Subtotal</td>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><a href=""><i class="far fa-times-circle"></i></a></td>
-              <td><img src="img/products/f1.jpg" alt=""></td>
-              <td>Cartoon Astronaut T-shirt</td>
-              <td>499 &#8377</td>
-              <td><input type="number" value="1"></td>
-              <td>499 &#8377</td>
-          </tr>
-          <tr>
-            <td><a href=""><i class="far fa-times-circle"></i></a></td>
-              <td><img src="img/products/f2.jpg" alt=""></td>
-              <td>Cartoon Astronaut T-shirt</td>
-              <td>499 &#8377</td>
-              <td><input type="number" value="1"></td>
-              <td>499 &#8377</td>
-          </tr>
-          <tr>
-            <td><a href=""><i class="far fa-times-circle"></i></a></td>
-              <td><img src="img/products/f3.jpg" alt=""></td>
-              <td>Cartoon Astronaut T-shirt</td>
-              <td>499 &#8377</td>
-              <td><input type="number" value="1"></td>
-              <td>499 &#8377</td>
-          </tr>
-        </tbody>
+        <tbody id="cart-items"></tbody>
+
       </table>
     </section>
 
@@ -166,5 +176,249 @@
       </div>
     </footer>
     <script src="script.js"></script>
+    <script>
+      function renderCart() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartItemsContainer = document.getElementById("cart-items");
+        const subtotalBox = document.querySelector("#subtotal table");
+        let total = 0;
+        cartItemsContainer.innerHTML = "";
+    
+        cart.forEach((item, index) => {
+          const itemTotal = item.quantity * item.price;
+          total += itemTotal;
+    
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td><a href="#" onclick="removeItem(${index})"><i class="far fa-times-circle"></i></a></td>
+            <td><img src="${item.image}" alt="${item.name}" width="60"></td>
+            <td>${item.name}</td>
+            <td>${item.price} &#8377;</td>
+            <td><input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
+            <td>${itemTotal} &#8377;</td>
+          `;
+          cartItemsContainer.appendChild(row);
+        });
+    
+        // Update totals
+        subtotalBox.innerHTML = `
+          <tr><td>Cart Subtotal</td><td>${total} &#8377;</td></tr>
+          <tr><td>Shipping</td><td>Free</td></tr>
+          <tr><td><strong>Total</strong></td><td><strong>${total} &#8377;</strong></td></tr>
+        `;
+      }
+    
+      function removeItem(index) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart();
+      }
+    
+      function updateQuantity(index, newQty) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart[index].quantity = parseInt(newQty);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart();
+      }
+    
+      window.addEventListener("DOMContentLoaded", renderCart);
+    </script>
+    
+    <script>
+      // Render the cart
+      function renderCart() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartItemsContainer = document.getElementById("cart-items");
+        const subtotalBox = document.querySelector("#subtotal table");
+        let total = 0;
+        cartItemsContainer.innerHTML = "";
+    
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML = `<tr><td colspan="6" style="text-align:center;">Your cart is empty.</td></tr>`;
+        } else {
+          cart.forEach((item, index) => {
+            const itemTotal = item.quantity * item.price;
+            total += itemTotal;
+    
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td><a href="#" onclick="removeItem(${index})"><i class="far fa-times-circle" style="color: #e74c3c;"></i></a></td>
+              <td><img src="${item.image}" alt="${item.name}" width="60"></td>
+              <td>${item.name}</td>
+              <td>${item.price} &#8377;</td>
+              <td><input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
+              <td>${itemTotal} &#8377;</td>
+            `;
+            cartItemsContainer.appendChild(row);
+          });
+        }
+    
+        subtotalBox.innerHTML = `
+          <tr><td>Cart Subtotal</td><td>${total} &#8377;</td></tr>
+          <tr><td>Shipping</td><td>Free</td></tr>
+          <tr><td><strong>Total</strong></td><td><strong>${total} &#8377;</strong></td></tr>
+        `;
+      }
+    
+      // Function to remove product from cart
+      function removeItem(index) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.splice(index, 1); // Remove product at that index
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart(); // Refresh the table
+      }
+    
+      // Function to update quantity
+      function updateQuantity(index, newQty) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart[index].quantity = parseInt(newQty);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart(); // Refresh totals
+      }
+    
+      window.addEventListener("DOMContentLoaded", renderCart);
+    </script>
+<!-- Checkout Modal (UPI QR section included) -->
+<div id="checkout-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:white; padding:20px 30px; border-radius:10px; width:95%; max-width:450px; position:relative;">
+    <h3 style="margin-bottom:10px;">Enter Delivery Details</h3>
+    <input type="text" id="name" placeholder="Full Name" style="width:100%; margin-bottom:10px; padding:8px;">
+    <input type="text" id="house" placeholder="House No / Flat" style="width:100%; margin-bottom:10px; padding:8px;">
+    <input type="text" id="street" placeholder="Street / Area" style="width:100%; margin-bottom:10px; padding:8px;">
+    <input type="text" id="city" placeholder="City" style="width:100%; margin-bottom:10px; padding:8px;">
+    <input type="text" id="state" placeholder="State" style="width:100%; margin-bottom:10px; padding:8px;">
+    <input type="text" id="pincode" placeholder="Pincode" style="width:100%; margin-bottom:10px; padding:8px;">
+    <input type="text" id="phone" placeholder="Phone Number" style="width:100%; margin-bottom:10px; padding:8px;">
+    <select id="payment" style="width:100%; margin-bottom:15px; padding:8px;">
+      <option value="">Select Payment Option</option>
+      <option value="cod">Cash on Delivery</option>
+      <option value="upi">UPI</option>
+      <option value="card">Credit/Debit Card</option>
+    </select>
+    <div id="upi-qr" style="display:none; text-align:center; margin-bottom:15px;">
+      <p>Scan this QR code to complete payment:</p>
+      <img src="img/QR.jpg" alt="UPI QR Code" style="width:200px; border:1px solid #ccc; border-radius:10px;" />
+    </div>
+    <button onclick="placeOrder()" class="normal" style="width:100%; background:#088178; color:white;">Place Order</button>
+    <span onclick="closeModal()" style="position:absolute; top:8px; right:12px; cursor:pointer; font-size:20px;">&times;</span>
+  </div>
+</div>
+
+<!-- Order Confirmation -->
+<div id="order-confirm" style="display:none; position:fixed; top:30px; right:30px; background:#088178; color:#fff; padding:15px 25px; border-radius:10px; z-index:1100;">
+  ✅ Your order has been placed successfully!
+</div>
+
+<script>
+  document.querySelector('#subtotal button').addEventListener('click', function () {
+    document.getElementById('checkout-modal').style.display = 'flex';
+  });
+
+  document.getElementById("payment").addEventListener("change", function () {
+    const qr = document.getElementById("upi-qr");
+    qr.style.display = this.value === "upi" ? "block" : "none";
+  });
+
+  function closeModal() {
+    document.getElementById('checkout-modal').style.display = 'none';
+  }
+
+  function placeOrder() {
+    const name = document.getElementById('name').value.trim();
+    const house = document.getElementById('house').value.trim();
+    const street = document.getElementById('street').value.trim();
+    const city = document.getElementById('city').value.trim();
+    const state = document.getElementById('state').value.trim();
+    const pincode = document.getElementById('pincode').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const payment = document.getElementById('payment').value;
+
+    if (!name || !house || !street || !city || !state || !pincode || !phone || !payment) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    if (payment === "upi") {
+      const confirmed = confirm("Have you completed the UPI payment?");
+      if (!confirmed) return;
+    }
+
+    localStorage.removeItem("cart");
+    renderCart();
+    closeModal();
+
+    const confirm = document.getElementById("order-confirm");
+    confirm.style.display = "block";
+    setTimeout(() => {
+      confirm.style.display = "none";
+    }, 3000);
+  }
+</script>
+<script>
+  // Trigger modal
+  document.querySelector('#subtotal button').addEventListener('click', function () {
+    document.getElementById('checkout-modal').style.display = 'flex';
+  });
+
+  // Show/hide QR code on UPI select
+  document.getElementById("payment").addEventListener("change", function () {
+    const qr = document.getElementById("upi-qr");
+    qr.style.display = this.value === "upi" ? "block" : "none";
+  });
+
+  function closeModal() {
+    document.getElementById('checkout-modal').style.display = 'none';
+  }
+
+  function placeOrder() {
+  const name = document.getElementById('name').value.trim();
+  const house = document.getElementById('house').value.trim();
+  const street = document.getElementById('street').value.trim();
+  const city = document.getElementById('city').value.trim();
+  const state = document.getElementById('state').value.trim();
+  const pincode = document.getElementById('pincode').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const payment = document.getElementById('payment').value;
+
+  if (!name || !house || !street || !city || !state || !pincode || !phone || !payment) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  if (payment === "upi") {
+    document.getElementById('upi-qr').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      const confirmed = confirm("Please scan the QR code to complete the UPI payment. Click OK only after you've completed the payment.");
+      if (!confirmed) return;
+      finalizeOrder();
+    }, 500);
+  } else {
+    finalizeOrder();
+  }
+}
+
+
+function finalizeOrder() {
+  // Simulate admin-side confirmation after short delay
+  const confirm = document.getElementById("order-confirm");
+  confirm.innerText = "🔄 Waiting for admin to confirm payment...";
+  confirm.style.display = "block";
+
+  setTimeout(() => {
+    confirm.innerText = "✅ Admin has confirmed the payment. Your order is now placed successfully!";
+    setTimeout(() => {
+      localStorage.removeItem("cart");
+      renderCart();
+      closeModal();
+      confirm.style.display = "none";
+    }, 3000);
+  }, 3000); // Simulates a 3-second wait for admin confirmation
+}
+
+</script>
+
+
+
   </body>
 </html>
